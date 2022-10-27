@@ -1,0 +1,7 @@
+{
+    "jobs": [
+        { "title": "fisher", "id": 1, "details": "lorem1" },
+        { "title": "programmer", "id": 2, "details": "lorem2" },
+        { "title": "designer", "id": 3, "details": "lorem3" }
+    ]
+}
