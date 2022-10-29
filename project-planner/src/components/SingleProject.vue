@@ -3,7 +3,9 @@
     <div class="actions">
       <h3 @click="showDetails">{{ project.title }}</h3>
       <div class="icons">
-        <span class="material-icons"> edit </span>
+        <router-link :to="{ name: 'EditProject', params: { id: project.id } }"
+          ><span class="material-icons"> edit </span></router-link
+        >
         <span @click="deleteProject" class="material-icons"> delete </span>
         <span
           @click="completeProject"
@@ -49,6 +51,16 @@ export default {
       })
         .then(() => this.$emit("complete", this.project.id))
         .catch((error) => console.log(error.message));
+    },
+    goToEdit() {
+      this.$router.push({
+        name: "EditProject",
+        params: {
+          id: this.project.id,
+          // title: this.project.title,
+          // details: this.project.details,
+        },
+      });
     },
   },
 };

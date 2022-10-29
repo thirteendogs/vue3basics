@@ -4,31 +4,37 @@
     <input v-model="title" type="text" name="title" id="title" required />
     <label>Details:</label>
     <textarea v-model="details" required></textarea>
-    <button>Add Project</button>
+    <button>Edit Project</button>
   </form>
 </template>
 
 <script>
 export default {
+  props: ["id"],
   data() {
     return {
       title: "",
       details: "",
+      uri: `http://localhost:3000/projects/${this.id}`,
     };
+  },
+  mounted() {
+    fetch(this.uri)
+      .then((response) => response.json())
+      .then((data) => {
+        this.title = data.title;
+        this.details = data.details;
+      });
   },
   methods: {
     handleSubmit() {
-      const project = {
-        title: this.title,
-        details: this.details,
-        complete: false,
-      };
-      fetch("http://localhost:3000/projects", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(project),
+      fetch(this.uri, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: this.title,
+          details: this.details,
+        }),
       })
         .then(() => this.$router.push({ name: "Home" }))
         .catch((error) => console.log(error.message));
