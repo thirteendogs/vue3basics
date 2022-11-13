@@ -5,17 +5,21 @@
       placeholder="Type a message and hit enter to send..."
       v-model="message"
     ></textarea>
+    <div class="error">{{ error }}</div>
   </form>
 </template>
 
 <script>
 import { ref } from "vue";
 import getUser from "../composables/getUser";
+import useCollection from "../composables/useCollection";
 import { timestamp } from "../firebase/config";
 
 export default {
   setup() {
     const { user } = getUser();
+    const { error, addDoc } = useCollection("messages");
+
     const message = ref("");
 
     const handleSubmit = async () => {
@@ -25,13 +29,16 @@ export default {
         createdAt: timestamp(),
       };
 
-      console.log(chat);
-      message.value = "";
+      await addDoc(chat);
+      if (!error.value) {
+        message.value = "";
+      }
     };
 
     return {
       message,
       handleSubmit,
+      error,
     };
   },
 };
