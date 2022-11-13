@@ -3,7 +3,7 @@ import { projectAuth } from '../firebase/config'
 
 const error = ref(null)
 
-const logout = async () => {
+const signout = async () => {
     error.value = null
 
     try {
@@ -14,8 +14,8 @@ const logout = async () => {
     }
 }
 
-const useLogout = () => {
-    return { error, logout}
+const useSignout = () => {
+    return { error, signout}
 }
 
-export default useLogout
+export default useSignout
