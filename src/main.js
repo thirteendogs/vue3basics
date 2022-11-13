@@ -7,7 +7,7 @@ import './assets/main.css'
 import { projectAuth } from './firebase/config'
 
 let app
-
+ 
 projectAuth.onAuthStateChanged(() => {
     if(!app) {
         app = createApp(App)

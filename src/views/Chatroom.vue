@@ -5,10 +5,30 @@
 </template>
 
 <script>
+// get the current user using the getUser composable
+// watch the current user for changes
+// redirect the user to the welcome page when the are logged out
 import Navbar from "../components/Navbar.vue";
+
+import getUser from "../composables/getUser";
+
+import { useRouter } from "vue-router";
+
+import { watch } from "vue";
+
 export default {
   components: {
     Navbar,
+  },
+  setup() {
+    const { user } = getUser();
+    const router = useRouter();
+
+    watch(user, () => {
+      if (!user.value) {
+        router.push({ name: "Welcome" });
+      }
+    });
   },
 };
 </script>

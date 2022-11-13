@@ -12,19 +12,13 @@
 import useSignout from "../composables/useSignout";
 import getUser from "../composables/getUser";
 
-import { useRouter } from "vue-router";
 export default {
   setup() {
-    const router = useRouter();
-
     const { error, signout } = useSignout();
     const { user } = getUser();
 
     const handleLogout = async () => {
       await signout();
-      if (!error.value) {
-        router.push({ name: "Welcome" });
-      }
     };
     return {
       error,
