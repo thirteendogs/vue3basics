@@ -11,7 +11,7 @@
 import useSignin from "../composables/useSignin";
 import { ref } from "vue";
 export default {
-  setup() {
+  setup(props, context) {
     const { signin, error } = useSignin();
     const email = ref("");
     const password = ref("");
@@ -19,7 +19,7 @@ export default {
     const handleSubmit = async () => {
       await signin(email.value, password.value);
       if (!error.value) {
-        console.log("user log in");
+        context.emit("login");
       }
     };
 
