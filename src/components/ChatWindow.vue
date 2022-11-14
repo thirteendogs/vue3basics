@@ -36,7 +36,6 @@ export default {
     onUpdated(() => {
       messages.value.scrollTop = messages.value.scrollHeight;
     });
-
     return {
       error,
       documents,
